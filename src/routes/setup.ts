@@ -6,7 +6,7 @@ const router = Router();
 const prisma = new PrismaClient();
 
 // One-time setup endpoint to seed database
-router.post('/setup', async (req, res) => {
+router.get('/setup', async (req, res) => {
     try {
         // Create admin user
         const adminPassword = await bcrypt.hash('admin123', 10);

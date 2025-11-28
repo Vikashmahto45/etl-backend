@@ -9,10 +9,8 @@ const prisma = new PrismaClient();
 router.get('/reset', async (req, res) => {
     try {
         // Drop all tables and recreate
-        await prisma.$executeRawUnsafe(`
-            DROP SCHEMA public CASCADE;
-            CREATE SCHEMA public;
-        `);
+        await prisma.$executeRawUnsafe(`DROP SCHEMA public CASCADE`);
+        await prisma.$executeRawUnsafe(`CREATE SCHEMA public`);
 
         res.json({
             success: true,

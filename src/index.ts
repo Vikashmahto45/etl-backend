@@ -8,6 +8,7 @@ import adRoutes from './routes/ads';
 import chatRoutes from './routes/chat';
 import favoriteRoutes from './routes/favorites';
 import adminRoutes from './routes/admin';
+import setupRoutes from './routes/setup';
 import { setupWebSocket } from './websocket';
 
 dotenv.config();
@@ -27,6 +28,7 @@ app.use('/api/ads', adRoutes);
 app.use('/api/chat', chatRoutes);
 app.use('/api/favorites', favoriteRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/setup', setupRoutes);
 
 // Health check
 app.get('/health', (req, res) => {

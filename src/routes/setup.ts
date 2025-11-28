@@ -5,6 +5,27 @@ import bcrypt from 'bcryptjs';
 const router = Router();
 const prisma = new PrismaClient();
 
+// Reset and setup database
+router.get('/reset', async (req, res) => {
+    try {
+        // Drop all tables and recreate
+        await prisma.$executeRawUnsafe(`
+            DROP SCHEMA public CASCADE;
+            CREATE SCHEMA public;
+        `);
+
+        res.json({
+            success: true,
+            message: 'Database reset! Now redeploy to run migrations.',
+        });
+    } catch (error: any) {
+        res.status(500).json({
+            success: false,
+            error: error.message,
+        });
+    }
+});
+
 // One-time setup endpoint to seed database
 router.get('/setup', async (req, res) => {
     try {

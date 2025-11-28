@@ -8,9 +8,11 @@ const prisma = new PrismaClient();
 // Reset and setup database
 router.get('/reset', async (req, res) => {
     try {
-        // Drop all tables and recreate
+        // Drop all tables and recreate schema
         await prisma.$executeRawUnsafe(`DROP SCHEMA public CASCADE`);
         await prisma.$executeRawUnsafe(`CREATE SCHEMA public`);
+        await prisma.$executeRawUnsafe(`GRANT ALL ON SCHEMA public TO neondb_owner`);
+        await prisma.$executeRawUnsafe(`GRANT ALL ON SCHEMA public TO public`);
 
         res.json({
             success: true,
